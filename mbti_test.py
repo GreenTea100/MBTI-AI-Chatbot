@@ -46,14 +46,14 @@ if st.session_state.test_mode is None:
     st.write("### 어떤 방식의 테스트를 원하시나요?")
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("🟢 간단 버전 (10문제 / A, B 선택)", use_container_width=True):
+        if st.button("🟢 간단 버전 (10문제 / 2지선다형)", use_container_width=True):
             if api_key:
                 start_test("simple")
                 st.rerun()
             else:
                 st.warning("사이드바에서 API Key를 먼저 입력해주세요.")
     with col2:
-        if st.button("🟣 상세 버전 (30문제 / 상황극 몰입)", use_container_width=True):
+        if st.button("🟣 상세 버전 (30문제 / 4지선다형)", use_container_width=True):
             if api_key:
                 start_test("detailed")
                 st.rerun()

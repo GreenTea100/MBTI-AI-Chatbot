@@ -9,7 +9,8 @@ def get_default_data():
         "conversation_id" : None,
         "nick_name" : "방문객",
         "my_mbti" : None,
-        "messages" : []
+        "messages" : [],
+        "relation_messages" : []
     }
 
 # JSON 파일 초기화 함수
@@ -37,6 +38,10 @@ def load_data():
 
     if "messages" not in data:
         data["messages"] = []
+
+    if "relation_messages" not in data:
+        data["relation_messages"] = []
+
     return data
 
 
@@ -82,4 +87,26 @@ def clear_messages():
     # conversation_id는 유지하고 messages만 초기화
     data["messages"] = []
 
+    save_data(data)
+
+
+
+# ----------------------------
+# 관계 상담 챗봇용 JSON
+# ----------------------------
+def load_relation_messages():
+    data = load_data()
+    return data["relation_messages"]
+
+def save_relation_messages(role, content):
+    data = load_data()
+    data["relation_messages"].append({
+        "role" : role,
+        "content" : content
+    })
+    save_data(data)
+
+def clear_relation_messages():
+    data = load_data()
+    data["relation_messages"] = []
     save_data(data)

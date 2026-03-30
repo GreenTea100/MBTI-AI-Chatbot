@@ -86,7 +86,7 @@ def mbti_setup_modal():
     # 셀렉트박스로 16가지 선택지 입력
     selected_mbti = st.selectbox("알고 있다면 아래에서 선택해주세요.", mbti_list)
     
-    col1, col2 = st.columns(2)
+    col1, col2= st.columns(2)
     with col1:
         # 확인 버튼을 누르면 세션에 저장하고 모달 닫기
         if st.button("저장하기", use_container_width=True):
@@ -96,6 +96,10 @@ def mbti_setup_modal():
         # 모른다면 MBTI 테스트 페이지로 강제 이동
         if st.button("MBTI를 모른다면?", use_container_width=True):
             st.switch_page("mbti_test.py")
+
+    # 모른다면 MBTI 테스트 페이지로 강제 이동
+    if st.button("간단하게 MBTI 알아보기", use_container_width=True):
+            st.switch_page("mbti_info.py")
 
 
 
@@ -141,14 +145,14 @@ with st.sidebar:
     st.write("### 💾 대화 내역 저장")
     st.caption("현재까지의 대화를 텍스트 파일로 다운로드합니다")
 
-    # 1. json_db.py의 함수를 이용해 JSON 파일에서 직접 대화 기록 전체를 불러옵니다.
+    # json_db.py의 함수를 이용해 JSON 파일에서 직접 대화 기록 전체를 불러옵니다.
     all_saved_messages = load_messages()
 
-    # 2. 다운로드할 텍스트 형식 만들기
+    # 다운로드할 텍스트 형식 만들기
     chat_export = "MBTI 과몰입 챗봇 대화 내역\n"
     chat_export += "=" * 30 + "\n\n"
     
-    # 3. JSON에서 불러온 메시지들을 예쁘게 줄바꿈하여 하나의 문자열로 합칩니다.
+    # JSON에서 불러온 메시지들을 줄바꿈하여 하나의 문자열로 합칩니다.
     for msg in all_saved_messages:
         # 화자 이름 설정
         if msg["role"] == "user":
@@ -160,7 +164,7 @@ with st.sidebar:
         # 대화 내용 추가
         chat_export += f"{speaker}: {msg['content']}\n\n"
 
-    # 4. 스트림릿 기본 다운로드 버튼 생성
+    # 스트림릿 기본 다운로드 버튼 생성
     st.download_button(
         label="대화 내역 다운로드 (.txt)",
         data=chat_export,              # 위에서 만든 텍스트 데이터
